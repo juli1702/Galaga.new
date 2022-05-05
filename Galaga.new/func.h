@@ -4,4 +4,5 @@
 #include "windows.h"
 void image();
 void input();
-void action();
+void actionleft();
+void actionright();

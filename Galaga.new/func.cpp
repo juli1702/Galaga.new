@@ -32,8 +32,11 @@ bool paused = false;
 int timer = 0;
 int x = cols / 2;
 int y = rows / 2;	
+char A = field[cols/2][rows-1];
 int locW1 = rand() % (cols - 1) + 1;
 int locW2 = rand() % (cols - 1) + 1;
+
+//Фукнция вывода карты в консоль
 void image() {
 	srand(time(NULL));
 	system("cls");
@@ -45,8 +48,10 @@ void image() {
 				if (i == cols - 3)
 					std::cout << "- ";
 				else
-					if (j == x && i == x * 2 - 1) // field[10][20] 
+					if (j == x && i == x * 2 - 1) { // field[10][20] - центр карты 
+						A = field[cols / 2][rows - 1];
 						std::cout << "A ";
+					}
 					else
 						if (i == 1 && j == locW1 || i == 1 && j == locW2)
 							std::cout << "w ";
@@ -56,30 +61,37 @@ void image() {
 		std::cout << std::endl;
 	}
 }
-
+//Функция, которая отвечает за считывание символов, которые нажимает пользователь на клавиатуре
 void input() {
-	char sym;
-	while (true) {
+	char sym = '1';
+	while (sym != 'q' && sym != 'Q') { // Q  - условие для выхода из игры 
 		if (_kbhit()) {
 			sym = _getch();
 			switch (sym) {
-			case 'a':case 'A': x--; std::cout << "Нажато   " << sym; break; // влево
-			case 'd': case 'D': x++; std::cout << " Нажато " << sym; break;// вправо
-			case 'w': case 'W': break; 
-			//case 'm': case 'M':; paused = !paused; break;
-			//case 'x': case 'X':; gamestop = true; break;
+			case 'a':case 'A': actionleft(); std::cout << "  Влево "; break; // влево
+			case 'd': case 'D': actionright(); std::cout << " Вправо "; break;// вправо
+			case 'w': case 'W': std::cout << " Выстрел\n" ; break;
+				//case 'm': case 'M':; paused = !paused; break;
+				//case 'x': case 'X':; gamestop = true; break;
 			}
 		}
 		if (timer >= 1000 && paused == false) {
 			//image();
-			//std::cout << "w "<< std::endl;
 			timer = 0;
 		}
-		Sleep(100);
-		timer += 100;
+		Sleep(40);
+		timer += 40;
 
 	}
 }
-void action() {
-
+//Функция, с помощью которой можно двигать фигурку героя влево
+void actionleft() {
+	A = { };
+	A = field[cols / 2 - 1][rows - 1];
+}
+//Функция, с помощью которой можно двигать фигурку героя влево
+void actionright() {
+	A = { };
+	field[cols / 2][rows - 1] = { };
+	A = field[cols / 2 + 1][rows - 1];
 }
