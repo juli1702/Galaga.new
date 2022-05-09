@@ -5,13 +5,16 @@ using namespace std;
 
 int main() {
 	setlocale(LC_ALL, "Russian");
-	cout << "Привет! Приветствую тебя в Galaga!\n";
-	cout << "Управляй клавишами A-влево, D - вправо,  W - выстрел, Q - выход из игры\n";
+
+	cout << "Приветствую Вас в Galaga!\n";
+	cout << "Управление клавишами:\n" <<
+		"A - движение влево\n" <<
+		"D - движение вправо\n" <<
+		"W - выстрел\n" <<
+		"P - приостановка игры\n" <<
+		"Q - выход из игры\n";
 	system("pause");
-	image();
-	input();
-
-
+	main_loop();
 
 	return 0;
 }
